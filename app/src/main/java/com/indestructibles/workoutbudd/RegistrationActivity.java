@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,13 +17,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     private Button mRegister;
-    private EditText  mEmail, mPassword;
+    private EditText  mEmail, mPassword, mName;
+
+    private RadioGroup mRadioGroup;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener fireBaseAuthStateListener;
@@ -52,13 +58,27 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
+        mName = (EditText) findViewById(R.id.name);
+
+        mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                int selectId = mRadioGroup.getCheckedRadioButtonId();
+
+                final RadioButton radioButton = (RadioButton) findViewById(selectId);
+                // On regarde ici si la personne a coché un bouton ou non
+                if(radioButton.getText() ==  null){
+                    //Si non, on arrête tous
+                    return;
+                }
+
                 //On récupère l'email et le password pour créer un nouvel utilisateur
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
+                final String name = mName.getText().toString();
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
@@ -66,6 +86,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         if(!task.isSuccessful()){
                             //On affiche un message à l'utilisateur
                             Toast.makeText(RegistrationActivity.this, "Registration Error, Please Try Again",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            // On va juste insérer quelques infos dans la database
+                            String userId = mAuth.getCurrentUser().getUid();
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(radioButton.getText().toString()).child(userId).child("Name");
+                            currentUserDb.setValue(name);
                         }
                     }
                 });
