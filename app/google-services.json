@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "917296405243",
+    "project_id": "workoutbudd",
+    "storage_bucket": "workoutbudd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917296405243:android:a93c17d1be4d9d9d9aae5e",
+        "android_client_info": {
+          "package_name": "com.indestructibles.workoutbudd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917296405243-2suo2e5b8jve5uqiu9o33d6in5b1736b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf4YNl7QHqGeEUwCCG6lMdAH8EkihbEEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917296405243-2suo2e5b8jve5uqiu9o33d6in5b1736b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

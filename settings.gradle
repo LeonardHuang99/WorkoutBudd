@@ -1,0 +1,2 @@
+rootProject.name = "WorkoutBudd"
+include ':app'
