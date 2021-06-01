@@ -27,11 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String WORKOUTBUDD_FIREBASEDATABASE = "https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/";
     private Cards cards_data[];
     private arrayAdapter arrayAdapter;
     private int i;
 
     private String currentUId;
+
+    private DatabaseReference usersDb;
 
     private FirebaseAuth mAuth;
 
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        usersDb = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Users");
 
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
@@ -71,12 +76,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
+
+                Cards object = (Cards) dataObject;
+                String userId =  object.getUserId();
+                usersDb.child(oppositeUserGender).child(userId).child("connections").child("no").child(currentUId).setValue(true);
                 //Ça va juste envoyer un message quand il est swipé à gauche
                 Toast.makeText(MainActivity.this,"Left!",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                Cards object = (Cards) dataObject;
+                String userId =  object.getUserId();
+                usersDb.child(oppositeUserGender).child(userId).child("connections").child("yes").child(currentUId).setValue(true);
                 //Ça va juste envoyer un message quand il est swipé à droite
                 Toast.makeText(MainActivity.this,"Right!",Toast.LENGTH_SHORT).show();
             }
@@ -115,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     public void checkUserGender(){
         final FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference maleDb = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child("Male");
+        DatabaseReference maleDb = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Users").child("Male");
         maleDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
@@ -144,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference femaleDb = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child("Female");
+        DatabaseReference femaleDb = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Users").child("Female");
         femaleDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
@@ -175,11 +187,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getOppositeGenderOfUsers(){
-        DatabaseReference oppositeGenderDb = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(oppositeUserGender);
+        DatabaseReference oppositeGenderDb = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Users").child(oppositeUserGender);
         oppositeGenderDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-                if(snapshot.exists()){
+                //On regarde si la personne n'a pas encore été swiper à droite ou à gauche par lu currentUserId
+                if(snapshot.exists() && !snapshot.child("connections").child("no").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId)){
 
                     Cards item = new Cards (snapshot.getKey(),snapshot.child("Name").getValue().toString());
                     rowItems.add(item);
