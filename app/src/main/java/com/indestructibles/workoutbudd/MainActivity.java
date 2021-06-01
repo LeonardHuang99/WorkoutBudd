@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import org.jetbrains.annotations.NotNull;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 //Ici, la personne à été swipé à droite et donc il y a une connexion "yes" qui est crée
                 usersDb.child(oppositeUserGender).child(userId).child("connections").child("yes").child(currentUId).setValue(true);
                 //Ça va juste envoyer un message quand il est swipé à droite
+                isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this,"Right!",Toast.LENGTH_SHORT).show();
             }
 
@@ -115,6 +117,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void isConnectionMatch(String userId) {
+        //On va ici juste aller dans la database et regardé s'il y a déjà eu un yes d'un côté ou pas
+        DatabaseReference currentUserConnectionsDb = usersDb.child(userGender).child(currentUId).child("connections").child("yes").child(userId);
+        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                //On regarde si le "yes" exist
+                if (snapshot.exists()){
+                    //Si oui, on va créer un nouveau child dans la database pour ajouter l'info du match chez les 2 users
+                    Toast.makeText(MainActivity.this,"New Match !",Toast.LENGTH_LONG).show();
+                    usersDb.child(oppositeUserGender).child(snapshot.getKey()).child("connections").child("matches").child(currentUId).setValue(true);
+                    usersDb.child(userGender).child(currentUId).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+        });
     }
 
     public void logoutUser(View view) {
