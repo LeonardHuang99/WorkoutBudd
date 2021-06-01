@@ -76,9 +76,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-
+                //On créer ici une connexion entre le CurrentUser et la personne qui a été swipé
                 Cards object = (Cards) dataObject;
                 String userId =  object.getUserId();
+                //Ici, la personne à été swipé à gauche et donc il y a une connexion "no" qui est crée
                 usersDb.child(oppositeUserGender).child(userId).child("connections").child("no").child(currentUId).setValue(true);
                 //Ça va juste envoyer un message quand il est swipé à gauche
                 Toast.makeText(MainActivity.this,"Left!",Toast.LENGTH_SHORT).show();
@@ -86,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                //On créer ici une connexion entre le CurrentUser et la personne qui a été swipé
                 Cards object = (Cards) dataObject;
                 String userId =  object.getUserId();
+                //Ici, la personne à été swipé à droite et donc il y a une connexion "yes" qui est crée
                 usersDb.child(oppositeUserGender).child(userId).child("connections").child("yes").child(currentUId).setValue(true);
                 //Ça va juste envoyer un message quand il est swipé à droite
                 Toast.makeText(MainActivity.this,"Right!",Toast.LENGTH_SHORT).show();
