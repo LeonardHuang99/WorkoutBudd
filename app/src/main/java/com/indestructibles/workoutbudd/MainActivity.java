@@ -216,11 +216,19 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference oppositeGenderDb = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Users").child(oppositeUserGender);
         oppositeGenderDb.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 //On regarde si la personne n'a pas encore été swiper à droite ou à gauche par lu currentUserId
                 if(snapshot.exists() && !snapshot.child("connections").child("no").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId)){
 
-                    Cards item = new Cards (snapshot.getKey(), Objects.requireNonNull(snapshot.child("Name").getValue()).toString());
+                    String profileImageUrl = "default";
+                    if(snapshot.child("profileImageUrl").getValue() != null) {
+
+                        if (!snapshot.child("profileImageUrl").getValue().equals("default")) {
+
+                            profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
+                        }
+                    }
+                    Cards item = new Cards (snapshot.getKey(), Objects.requireNonNull(snapshot.child("Name").getValue()).toString(), profileImageUrl);
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }

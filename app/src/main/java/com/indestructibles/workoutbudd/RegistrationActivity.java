@@ -22,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     private Button mRegister;
@@ -90,8 +93,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         else{
                             // On va juste insérer quelques infos dans la database
                             String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(radioButton.getText().toString()).child(userId).child("Name");
-                            currentUserDb.setValue(name);
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(radioButton.getText().toString()).child(userId);
+                            Map userInfo = new HashMap<>();
+                            userInfo.put("Name", name);
+                            userInfo.put("profilImageUrl", "default");
+
+                            currentUserDb.updateChildren(userInfo);
                         }
                     }
                 });
