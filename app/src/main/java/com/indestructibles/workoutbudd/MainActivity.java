@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     public static final String WORKOUTBUDD_FIREBASEDATABASE = "https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/";
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                 //On regarde si la personne n'a pas encore été swiper à droite ou à gauche par lu currentUserId
                 if(snapshot.exists() && !snapshot.child("connections").child("no").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId)){
 
-                    Cards item = new Cards (snapshot.getKey(),snapshot.child("Name").getValue().toString());
+                    Cards item = new Cards (snapshot.getKey(), Objects.requireNonNull(snapshot.child("Name").getValue()).toString());
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
@@ -242,5 +243,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void goToSettings(View view) {
+        Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+        intent.putExtra("userGender", userGender);
+        startActivity(intent);
+        return;
     }
 }

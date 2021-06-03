@@ -7,6 +7,7 @@ public class Cards {
 
     private String userId;
     private String name;
+
     public Cards (String userId, String name){
         this.userId = userId;
         this.name = name;
