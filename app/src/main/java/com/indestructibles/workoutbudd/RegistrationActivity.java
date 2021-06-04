@@ -96,7 +96,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(radioButton.getText().toString()).child(userId);
                             Map userInfo = new HashMap<>();
                             userInfo.put("Name", name);
-                            userInfo.put("profilImageUrl", "default");
+                            userInfo.put("profileImageUrl", "default");
 
                             currentUserDb.updateChildren(userInfo);
                         }
