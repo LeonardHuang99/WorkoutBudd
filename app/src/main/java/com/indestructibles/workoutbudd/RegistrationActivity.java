@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -93,9 +94,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         else{
                             // On va juste insérer quelques infos dans la database
                             String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(radioButton.getText().toString()).child(userId);
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(userId);
                             Map userInfo = new HashMap<>();
                             userInfo.put("Name", name);
+                            userInfo.put("gender", radioButton.getText().toString());
                             userInfo.put("profileImageUrl", "default");
 
                             currentUserDb.updateChildren(userInfo);

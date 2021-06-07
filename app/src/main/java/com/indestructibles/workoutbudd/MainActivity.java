@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 Cards object = (Cards) dataObject;
                 String userId =  object.getUserId();
                 //Ici, la personne à été swipé à gauche et donc il y a une connexion "no" qui est crée
-                usersDb.child(oppositeUserGender).child(userId).child("connections").child("no").child(currentUId).setValue(true);
+                usersDb.child(userId).child("connections").child("no").child(currentUId).setValue(true);
                 //Ça va juste envoyer un message quand il est swipé à gauche
                 Toast.makeText(MainActivity.this,"Left!",Toast.LENGTH_SHORT).show();
             }
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 Cards object = (Cards) dataObject;
                 String userId =  object.getUserId();
                 //Ici, la personne à été swipé à droite et donc il y a une connexion "yes" qui est crée
-                usersDb.child(oppositeUserGender).child(userId).child("connections").child("yes").child(currentUId).setValue(true);
+                usersDb.child(userId).child("connections").child("yes").child(currentUId).setValue(true);
                 //Ça va juste envoyer un message quand il est swipé à droite
                 isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this,"Right!",Toast.LENGTH_SHORT).show();
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void isConnectionMatch(String userId) {
         //On va ici juste aller dans la database et regardé s'il y a déjà eu un yes d'un côté ou pas
-        DatabaseReference currentUserConnectionsDb = usersDb.child(userGender).child(currentUId).child("connections").child("yes").child(userId);
+        DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yes").child(userId);
         currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -130,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
                 if (snapshot.exists()){
                     //Si oui, on va créer un nouveau child dans la database pour ajouter l'info du match chez les 2 users
                     Toast.makeText(MainActivity.this,"New Match !",Toast.LENGTH_LONG).show();
-                    usersDb.child(oppositeUserGender).child(snapshot.getKey()).child("connections").child("matches").child(currentUId).setValue(true);
-                    usersDb.child(userGender).child(currentUId).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
+                    usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUId).setValue(true);
+                    usersDb.child(currentUId).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
                 }
             }
 
@@ -153,72 +154,43 @@ public class MainActivity extends AppCompatActivity {
     public void checkUserGender(){
         final FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference maleDb = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Users").child("Male");
-        maleDb.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+        DatabaseReference userDb = usersDb.child(user.getUid());
 
-                if(snapshot.getKey().equals(user.getUid())){
-                    userGender = "Male";
-                    oppositeUserGender = "Female";
-                    getOppositeGenderOfUsers();
+        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()){
+                    if (snapshot.child("gender") != null){
+                        userGender = snapshot.child("gender").getValue().toString();
+                        switch (userGender){
+                            case "Male":
+                                oppositeUserGender = "Female";
+                                break;
+                            case "Female":
+                                oppositeUserGender = "Male";
+                                break;
+                        }
+                        getOppositeGenderOfUsers();
+                    }
                 }
             }
 
             @Override
-            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
-            }
-
-            @Override
-            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-            }
-
-            @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
             }
         });
 
-        DatabaseReference femaleDb = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Users").child("Female");
-        femaleDb.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
 
-                if(snapshot.getKey().equals(user.getUid())){
-                    userGender = "Female";
-                    oppositeUserGender = "Male";
-                    getOppositeGenderOfUsers();
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
-            }
-
-            @Override
-            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-            }
-        });
     }
 
     public void getOppositeGenderOfUsers(){
-        DatabaseReference oppositeGenderDb = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Users").child(oppositeUserGender);
-        oppositeGenderDb.addChildEventListener(new ChildEventListener() {
+        usersDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 //On regarde si la personne n'a pas encore été swiper à droite ou à gauche par lu currentUserId
-                if(snapshot.exists() && !snapshot.child("connections").child("no").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId)){
+                if(snapshot.exists() && !snapshot.child("connections").child("no").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId) && snapshot.child("gender").getValue().toString().equals(oppositeUserGender)){
 
                     String profileImageUrl = "default";
                     if(snapshot.child("profileImageUrl").getValue() != null) {
@@ -250,12 +222,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
             }
         });
-
     }
 
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
-        intent.putExtra("userGender", userGender);
         startActivity(intent);
         return;
     }

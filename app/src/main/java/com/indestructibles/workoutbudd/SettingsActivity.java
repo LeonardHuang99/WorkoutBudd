@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,16 +45,14 @@ public class SettingsActivity extends AppCompatActivity {
     private Button mBack, mConfirm;
     private ImageView mProfileImage;
     private FirebaseAuth mAuth;
-    private DatabaseReference mCustomerDatabase;
-    private String userID, name, phone, profileImageUrl;
+    private DatabaseReference mUserDatabase;
+    private String userID, name, phone, profileImageUrl, userGender;
     private Uri resultUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
-        String userGender = getIntent().getExtras().getString("userGender");
 
         mNameField = (EditText) findViewById(R.id.name);
         mPhoneField = (EditText) findViewById(R.id.phone);
@@ -67,7 +64,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-        mCustomerDatabase = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(userGender).child(userID);
+        mUserDatabase = FirebaseDatabase.getInstance("https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(userID);
 
         getUserInfo();
 
@@ -114,7 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void getUserInfo() {
-        mCustomerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if(snapshot.exists() && snapshot.getChildrenCount() > 0){
@@ -130,6 +127,11 @@ public class SettingsActivity extends AppCompatActivity {
 
                         phone = Objects.requireNonNull(map.get("phone")).toString();
                         mPhoneField.setText(phone);
+                    }
+
+                    if (map.get("gender") != null){
+
+                        userGender = Objects.requireNonNull(map.get("gender")).toString();
                     }
 
                     Glide.with(getApplication()).clear(mProfileImage);
@@ -164,7 +166,7 @@ public class SettingsActivity extends AppCompatActivity {
         Map<String, Object> userInfo = new HashMap<String, Object>();
         userInfo.put("Name", name);
         userInfo.put("phone", phone);
-        mCustomerDatabase.updateChildren(userInfo);
+        mUserDatabase.updateChildren(userInfo);
 
         if (resultUri != null){
             StorageReference filepath = FirebaseStorage.getInstance("gs://workoutbudd.appspot.com/").getReference().child("profileImage").child(userID);
@@ -190,7 +192,7 @@ public class SettingsActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             Map newImage = new HashMap();
                             newImage.put("profileImageUrl", uri.toString());
-                            mCustomerDatabase.updateChildren(newImage);
+                            mUserDatabase.updateChildren(newImage);
 
                             finish();
                             return;
