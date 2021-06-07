@@ -1,4 +1,4 @@
-package com.indestructibles.workoutbudd;
+package com.indestructibles.workoutbudd.Cards;
 
 import com.google.firebase.database.DatabaseReference;
 

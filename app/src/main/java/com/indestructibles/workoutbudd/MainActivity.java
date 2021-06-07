@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,19 +19,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.indestructibles.workoutbudd.Cards.Cards;
+import com.indestructibles.workoutbudd.Cards.arrayAdapter;
+import com.indestructibles.workoutbudd.Matches.MatchesActivity;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     public static final String WORKOUTBUDD_FIREBASEDATABASE = "https://workoutbudd-default-rtdb.europe-west1.firebasedatabase.app/";
     private Cards cards_data[];
-    private arrayAdapter arrayAdapter;
+    private com.indestructibles.workoutbudd.Cards.arrayAdapter arrayAdapter;
     private int i;
 
     private String currentUId;
@@ -226,6 +227,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+        startActivity(intent);
+        return;
+    }
+
+    public void goToMatches(View view) {
+        Intent intent = new Intent(MainActivity.this, MatchesActivity.class);
         startActivity(intent);
         return;
     }
