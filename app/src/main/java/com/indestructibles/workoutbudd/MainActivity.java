@@ -135,9 +135,8 @@ public class MainActivity extends AppCompatActivity {
 
                     String key = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Chat").push().getKey();
 
-                    usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(key);
-
-                    usersDb.child(currentUId).child("connections").child("matches").child(snapshot.getKey()).child("ChatId").setValue(key);
+                    usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUId).child("chatId").setValue(key);
+                    usersDb.child(currentUId).child("connections").child("matches").child(snapshot.getKey()).child("chatId").setValue(key);
 
                 }
             }
