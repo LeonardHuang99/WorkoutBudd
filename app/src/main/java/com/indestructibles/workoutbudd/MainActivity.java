@@ -191,20 +191,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 //On regarde si la personne n'a pas encore été swiper à droite ou à gauche par lu currentUserId
-                if(snapshot.exists() && !snapshot.child("connections").child("no").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId) && snapshot.child("gender").getValue().toString().equals(oppositeUserGender)){
+                if (snapshot.child("gender").getValue() != null){
+                    if(snapshot.exists() && !snapshot.child("connections").child("no").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId) && snapshot.child("gender").getValue().toString().equals(oppositeUserGender)){
 
-                    String profileImageUrl = "default";
-                    if(snapshot.child("profileImageUrl").getValue() != null) {
+                        String profileImageUrl = "default";
+                        if(snapshot.child("profileImageUrl").getValue() != null) {
 
-                        if (!snapshot.child("profileImageUrl").getValue().equals("default")) {
+                            if (!snapshot.child("profileImageUrl").getValue().equals("default")) {
 
-                            profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
+                                profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
+                            }
                         }
+                        Cards item = new Cards (snapshot.getKey(), Objects.requireNonNull(snapshot.child("Name").getValue()).toString(), profileImageUrl);
+                        rowItems.add(item);
+                        arrayAdapter.notifyDataSetChanged();
                     }
-                    Cards item = new Cards (snapshot.getKey(), Objects.requireNonNull(snapshot.child("Name").getValue()).toString(), profileImageUrl);
-                    rowItems.add(item);
-                    arrayAdapter.notifyDataSetChanged();
                 }
+
             }
 
             @Override
