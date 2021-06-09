@@ -27,7 +27,8 @@
             android:layout_weight="0.8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="message...">
+            android:hint="message..."
+            android:id="@+id/message">
         </EditText>
 
         <Button

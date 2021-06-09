@@ -132,8 +132,13 @@ public class MainActivity extends AppCompatActivity {
                 if (snapshot.exists()){
                     //Si oui, on va créer un nouveau child dans la database pour ajouter l'info du match chez les 2 users
                     Toast.makeText(MainActivity.this,"New Match !",Toast.LENGTH_LONG).show();
-                    usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUId).setValue(true);
-                    usersDb.child(currentUId).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
+
+                    String key = FirebaseDatabase.getInstance(WORKOUTBUDD_FIREBASEDATABASE).getReference().child("Chat").push().getKey();
+
+                    usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(key);
+
+                    usersDb.child(currentUId).child("connections").child("matches").child(snapshot.getKey()).child("ChatId").setValue(key);
+
                 }
             }
 
