@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -32,6 +33,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText  mEmail, mPassword, mName;
 
     private RadioGroup mRadioGroup;
+
+    private CheckBox mCheckBoxTCU;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener fireBaseAuthStateListener;
@@ -66,6 +69,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
+        mCheckBoxTCU = (CheckBox) findViewById(R.id.checkBoxTCU);
+
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +81,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 // On regarde ici si la personne a coché un bouton ou non
                 if(radioButton.getText() ==  null){
                     //Si non, on arrête tous
+                    return;
+                }
+
+                if (! mCheckBoxTCU.isChecked()){
                     return;
                 }
 
