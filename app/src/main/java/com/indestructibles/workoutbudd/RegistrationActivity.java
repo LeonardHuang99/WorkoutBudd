@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -44,6 +45,9 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        mCheckBoxTCU = (CheckBox) findViewById(R.id.checkBoxTCU);
+        mCheckBoxTCU.setMovementMethod(LinkMovementMethod.getInstance());
+
         mAuth = FirebaseAuth.getInstance();
         fireBaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -68,8 +72,6 @@ public class RegistrationActivity extends AppCompatActivity {
         mName = (EditText) findViewById(R.id.name);
 
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-
-        mCheckBoxTCU = (CheckBox) findViewById(R.id.checkBoxTCU);
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
