@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="5dp"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    
+    <ImageView
+        android:id="@+id/miniature"
+        android:src="@color/black"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_marginTop="70dp"
+        android:layout_toRightOf="@+id/miniature"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:text="Description"/>
+
+    <TextView
+        android:id="@+id/auteurText"
+        android:textSize="15dp"
+        android:layout_toRightOf="@+id/miniature"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionText"
+        style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+        android:maxLength="50"
+        android:singleLine="true"
+        android:text="Auteur"/>
+
+</RelativeLayout>

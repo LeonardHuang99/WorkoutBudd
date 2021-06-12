@@ -17,18 +17,30 @@
             android:layout_height="wrap_content"
             android:text="SignOut"
             android:onClick="logoutUser"
-            android:layout_marginRight="5sp" />
+            android:textSize="12dp"
+            android:layout_marginRight="3sp" />
 
         <Button
             android:layout_weight="1"
+            android:textSize="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Matches"
             android:onClick="goToMatches"
-            android:layout_marginRight="5sp" />
+            android:layout_marginRight="3sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12dp"
+            android:onClick="goToVideos"
+            android:layout_marginRight="3sp"
+            android:text="Videos" />
 
         <Button
             android:layout_weight="1"
+            android:textSize="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Settings"

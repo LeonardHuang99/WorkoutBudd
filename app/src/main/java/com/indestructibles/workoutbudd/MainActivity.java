@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.indestructibles.workoutbudd.Cards.Cards;
 import com.indestructibles.workoutbudd.Cards.arrayAdapter;
 import com.indestructibles.workoutbudd.Matches.MatchesActivity;
+import com.indestructibles.workoutbudd.Videos.VideoActivity;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import org.jetbrains.annotations.NotNull;
@@ -240,6 +241,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToMatches(View view) {
         Intent intent = new Intent(MainActivity.this, MatchesActivity.class);
+        startActivity(intent);
+        return;
+    }
+
+    public void goToVideos(View view) {
+        Intent intent = new Intent(MainActivity.this, VideoActivity.class);
         startActivity(intent);
         return;
     }

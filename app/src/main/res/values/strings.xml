@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">WorkoutBudd</string>
 
-    <string name="hyperLinkTCU">I have read and accepted the  <a href = "https://workoutbudd.000webhostapp.com/">TCU</a></string>
+    <string name="hyperLinkTCU">I have read and accepted the  <a href="https://workoutbudd.000webhostapp.com/">TCU</a></string>
 </resources>
