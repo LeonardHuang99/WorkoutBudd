@@ -7,9 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -37,7 +42,8 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mChatLayoutManager;
 
     private EditText mSendEditText;
-    private Button mSendButton;
+    private Button mSendButton, mDiscordButton;
+    private TextView mDiscordLink;
 
     private String currentUserID, matchId, chatId;
 
@@ -67,11 +73,21 @@ public class ChatActivity extends AppCompatActivity {
 
         mSendEditText = findViewById(R.id.message);
         mSendButton = findViewById(R.id.send);
+        mDiscordButton = findViewById(R.id.discord);
+
+        mDiscordLink = findViewById(R.id.discordLink);
 
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendMessage();
+            }
+        });
+
+        mDiscordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendDiscordLink();
             }
         });
     }
@@ -88,6 +104,20 @@ public class ChatActivity extends AppCompatActivity {
 
             newMessageDb.setValue(newMessage);
         }
+        mSendEditText.setText(null);
+    }
+
+    private void sendDiscordLink() {
+
+        String discordLink = "https://discord.io/WorkoutBudd";
+
+        DatabaseReference newMessageDb = mDatabaseChat.push();
+
+        Map newMessage = new HashMap();
+        newMessage.put("createdByUser", currentUserID);
+        newMessage.put("text", discordLink);
+        newMessageDb.setValue(newMessage);
+
         mSendEditText.setText(null);
     }
 

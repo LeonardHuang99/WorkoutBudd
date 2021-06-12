@@ -2,4 +2,5 @@
     <string name="app_name">WorkoutBudd</string>
 
     <string name="hyperLinkTCU">I have read and accepted the  <a href="https://workoutbudd.000webhostapp.com/">TCU</a></string>
+    <string name="hyperLinkDiscord">To join the training, click here : <a href="https://discord.gg/wZQQ27MeT4">Discord</a></string>
 </resources>

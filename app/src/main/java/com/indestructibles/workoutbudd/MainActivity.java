@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         checkUserGender();
 
-
-
         //Ici c'est juste une liste des noms de cartes pour l'instant
         rowItems = new ArrayList<Cards>();
         //C'est là qu'on met les cartes
