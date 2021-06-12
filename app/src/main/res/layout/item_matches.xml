@@ -22,6 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Match's Name"
+            android:textStyle="bold"
+            android:textColor="#d7bb22"
             android:layout_gravity="center"
             android:id="@+id/MatchName"/>
         <TextView

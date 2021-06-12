@@ -5,50 +5,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#2d2d2d">
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView4"
+        android:textColor="#d7bb22"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_marginTop="50sp"
+        android:layout_marginBottom="30sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="name"
-        android:id="@+id/name"/>
+        android:text="Ravi de vous rencontrer" />
+
     <RadioGroup
+        android:orientation="horizontal"
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroup">
+        android:layout_marginBottom="20sp">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_marginLeft="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CIVILITÉ"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            />
+
+        <RadioButton
+            android:layout_marginLeft="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Male" />
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Female"/>
+            android:textColor="@color/white"
+            android:layout_marginLeft="10sp"
+            android:text="Female" />
     </RadioGroup>
 
+    <EditText
+
+        android:layout_gravity="center"
+        android:layout_width="350sp"
+        android:layout_height="40sp"
+        android:paddingLeft="8sp"
+        android:layout_marginBottom="20sp"
+        android:background="@color/white"
+        android:hint="Name"
+        android:id="@+id/name"/>
+
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="email"
+        android:layout_gravity="center"
+        android:layout_width="350sp"
+        android:layout_height="40sp"
+        android:paddingLeft="8sp"
+        android:layout_marginBottom="20sp"
+        android:background="@color/white"
+        android:hint="Email"
         android:id="@+id/email"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="password"
+        android:layout_gravity="center"
+        android:layout_width="350sp"
+        android:layout_height="40sp"
+        android:paddingLeft="8sp"
+        android:layout_marginBottom="20sp"
+        android:background="@color/white"
+        android:hint="Password"
         android:id="@+id/password"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24sp"
+        android:textColor="@color/white"
         android:text="@string/hyperLinkTCU"
         android:id="@+id/checkBoxTCU">
     </CheckBox>
 
-    <Button
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_marginTop="20sp"
+        android:layout_gravity="center"
+        android:layout_width="298sp"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@drawable/gradiant_color"
         android:text="Register"
         android:id="@+id/register"/>
 

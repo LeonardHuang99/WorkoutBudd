@@ -5,23 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#2d2d2d">
 
-    <EditText
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView4"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_marginTop="50sp"
+        android:layout_marginBottom="100sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="email"
+        android:text="LOGIN" />
+
+    <EditText
+        android:layout_gravity="center"
+        android:layout_width="350sp"
+        android:layout_height="40sp"
+        android:paddingLeft="8sp"
+        android:layout_marginBottom="16sp"
+        android:background="@color/white"
+        android:hint="Email"
         android:id="@+id/email"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="password"
+        android:layout_gravity="center"
+        android:layout_width="350sp"
+        android:layout_height="40sp"
+        android:paddingLeft="8sp"
+        android:background="@color/white"
+        android:hint="Password"
         android:id="@+id/password"/>
 
-    <Button
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_gravity="center"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@drawable/gradiant_color"
+        android:layout_marginTop="50sp"
         android:text="Login"
         android:id="@+id/login"/>
 

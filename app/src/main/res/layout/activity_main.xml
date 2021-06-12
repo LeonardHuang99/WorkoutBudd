@@ -5,44 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#2d2d2d">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="@drawable/gradiant_color_main_button"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40sp"
+            android:textColor="@color/white"
             android:text="SignOut"
             android:onClick="logoutUser"
             android:textSize="12dp"
             android:layout_marginRight="3sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="@drawable/gradiant_color_main_button"
             android:layout_weight="1"
             android:textSize="12dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_height="40sp"
             android:text="Matches"
             android:onClick="goToMatches"
             android:layout_marginRight="3sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="@drawable/gradiant_color_main_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_height="40sp"
             android:layout_weight="1"
             android:textSize="12dp"
             android:onClick="goToVideos"
             android:layout_marginRight="3sp"
             android:text="Videos" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="@drawable/gradiant_color_main_button"
             android:layout_weight="1"
             android:textSize="12dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_height="40sp"
             android:text="Settings"
             android:onClick="goToSettings"/>
 
@@ -51,10 +61,10 @@
 
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         android:id="@+id/frame"
-        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:rotation_degrees="15.5"
-        tools:context=".MyActivity" />
+        tools:context=".MyActivity"
+        android:background="#2d2d2d"/>
 
 </LinearLayout>

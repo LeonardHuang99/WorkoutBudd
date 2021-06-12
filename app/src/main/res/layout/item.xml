@@ -10,7 +10,8 @@
     android:paddingTop="20sp"
     android:paddingBottom="20sp"
     android:outlineProvider="bounds"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:background="#2d2d2d">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -24,7 +25,8 @@
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="350dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#2d2d2d">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -38,8 +40,8 @@
                 android:textSize="30sp"
                 android:paddingLeft="20sp"
                 android:background="@android:color/transparent"
-                android:textColor="@android:color/black"
-                android:gravity="center|left"
+                android:textColor="#d7bb22"
+                android:gravity="center"
                 tools:text="Hello"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

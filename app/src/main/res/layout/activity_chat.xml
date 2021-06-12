@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Chat.ChatActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#2d2d2d">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -29,27 +30,34 @@
             android:layout_weight="0.7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingLeft="5sp"
             android:hint="message..."
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:id="@+id/message">
         </EditText>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="@drawable/gradiant_color_main_button"
+            android:textColor="@color/white"
             android:layout_weight="0.2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:textSize="12sp"
             android:text="Send"
             android:id="@+id/send">
-        </Button>
+        </androidx.appcompat.widget.AppCompatButton>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="@drawable/gradiant_color_main_button"
+            android:textColor="@color/white"
             android:layout_weight="0.2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="8sp"
+            android:layout_height="40dp"
+            android:textSize="10sp"
             android:text="Discord"
             android:id="@+id/discord">
-        </Button>
+        </androidx.appcompat.widget.AppCompatButton>
     </LinearLayout>
 
 </RelativeLayout>

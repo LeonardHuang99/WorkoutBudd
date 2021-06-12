@@ -11,6 +11,7 @@
         android:layout_height="200dp"/>
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/descriptionText"
         android:layout_marginTop="70dp"
         android:layout_toRightOf="@+id/miniature"
@@ -22,6 +23,7 @@
         android:text="Description"/>
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/auteurText"
         android:textSize="15dp"
         android:layout_toRightOf="@+id/miniature"

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Videos.VideoActivity">
+    tools:context=".Videos.VideoActivity"
+    android:background="#2d2d2d">
     
     <ListView
         android:id="@+id/videoActivity"

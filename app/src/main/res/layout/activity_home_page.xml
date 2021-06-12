@@ -5,18 +5,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomePageActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#2d2d2d">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/login"/>
+    <ImageView
+        android:layout_marginTop="50sp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"
+        android:layout_width="255sp"
+        android:layout_height="218sp"
+        app:srcCompat="@drawable/logo_wb" />
 
-    <Button
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_marginBottom="30sp"
+        android:layout_width="200sp"
         android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/register"/>
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:textColor="#d7bb22"
+        android:text="Pour aider l'esprit\n et lutter contre l'ennui" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_marginBottom="15sp"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:textColor="#737a81"
+        android:text="Vous possedez déjà un compte ? \n Connectez-vous !" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login"
+        android:layout_gravity="center"
+        android:layout_width="298sp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@drawable/gradiant_color"
+
+        android:text="Login" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_marginTop="30sp"
+        android:layout_width="280sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15sp"
+        android:gravity="center"
+        android:text="Vous êtes nouveau sur Workout Budd ?\n Inscrivez-vous maintenant !"
+        android:textColor="#737a81"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register"
+        android:layout_gravity="center"
+        android:layout_width="298sp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@drawable/gradiant_color"
+        android:text="Register" />
 
 </LinearLayout>
