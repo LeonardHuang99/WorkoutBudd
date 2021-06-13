@@ -85,7 +85,7 @@ public class MatchesActivity extends AppCompatActivity {
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
 
-                    MatchesObject obj = new MatchesObject(userId,Name,profileImageUrl);
+                    MatchesObject obj = new MatchesObject(Name,profileImageUrl);
                     resultsMatches.add(obj);
                     mMatchesAdapter.notifyDataSetChanged();
                 }
