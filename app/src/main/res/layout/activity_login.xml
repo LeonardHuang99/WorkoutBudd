@@ -36,6 +36,7 @@
         android:layout_width="350sp"
         android:layout_height="40sp"
         android:paddingLeft="8sp"
+        android:inputType="textPassword"
         android:background="@color/white"
         android:hint="Password"
         android:id="@+id/password"/>

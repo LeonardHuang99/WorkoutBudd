@@ -18,10 +18,12 @@
         android:orientation="vertical"
         android:layout_gravity="center">
         <TextView
+            android:paddingTop="15sp"
             android:paddingBottom="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Match's Name"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#d7bb22"
             android:layout_gravity="center"
@@ -30,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Match's ID"
+            android:textColor="#2d2d2d"
             android:layout_gravity="center"
             android:id="@+id/Matchid"/>
     </LinearLayout>
