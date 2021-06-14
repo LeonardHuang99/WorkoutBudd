@@ -28,6 +28,7 @@ public class MatchesActivity extends AppCompatActivity {
 
     private String currentUserID;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +86,7 @@ public class MatchesActivity extends AppCompatActivity {
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
 
-                    MatchesObject obj = new MatchesObject(Name,profileImageUrl);
+                    MatchesObject obj = new MatchesObject(userId, Name,profileImageUrl);
                     resultsMatches.add(obj);
                     mMatchesAdapter.notifyDataSetChanged();
                 }
